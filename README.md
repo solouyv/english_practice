@@ -35,5 +35,6 @@ On first run faster-whisper downloads the `base` model (~140 MB).
 ## Usage
 
 1. Select a topic
-2. Hold the microphone button and speak English
-3. Release to send — the reply appears as text and plays as audio
+2. Press **Space** (don't hold) and speak English
+3. Press **Space** again to send
+4. Listen — the reply appears as text and plays as audio
