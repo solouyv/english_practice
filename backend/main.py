@@ -9,7 +9,7 @@ from fastapi.responses import Response
 from faster_whisper import WhisperModel
 from pydantic import BaseModel
 
-from prompts import Topic, build_system_prompt
+from prompts import TOPICS, Topic, build_system_prompt
 
 _llm = openai.OpenAI(
     base_url=os.environ["LITELLM_BASE_URL"],
@@ -30,6 +30,11 @@ app.add_middleware(
 )
 
 _whisper = WhisperModel("base", device="cpu", compute_type="int8")
+
+
+@app.get("/topics")
+def topics() -> dict:
+    return {"topics": TOPICS}
 
 
 @app.post("/transcribe")

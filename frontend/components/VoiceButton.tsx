@@ -13,6 +13,8 @@ export function VoiceButton({ onTranscribed, disabled }: Props) {
   const recorderRef = useRef<MediaRecorder | null>(null)
   const chunksRef = useRef<Blob[]>([])
   const recordingRef = useRef(false)
+  const onTranscribedRef = useRef(onTranscribed)
+  onTranscribedRef.current = onTranscribed
 
   useEffect(() => {
     function toggle() {
@@ -46,7 +48,7 @@ export function VoiceButton({ onTranscribed, disabled }: Props) {
       stream.getTracks().forEach((t) => t.stop())
       const blob = new Blob(chunksRef.current, { type: "audio/webm" })
       const text = await transcribeAudio(blob)
-      if (text.trim()) onTranscribed(text)
+      if (text.trim()) onTranscribedRef.current(text)
     }
 
     recorderRef.current = recorder

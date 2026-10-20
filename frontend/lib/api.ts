@@ -5,24 +5,14 @@ export interface Message {
   content: string
 }
 
-export type Topic =
-  | "travel" | "work" | "daily life" | "hobbies" | "technology" | "food"
-  | "B2 Unit 1 Grammar Drill"
-  | "B2 Unit 2 Contrastive Pairs"
-  | "B2 Unit 2 Phrasal Verbs"
-  | "B2 Unit 2 Word Formation"
-  | "B2 Unit 2 Conversation"
-  | "B2 Scenario Loop"
+export type Topic = string
 
-export const TOPICS: Topic[] = [
-  "travel", "work", "daily life", "hobbies", "technology", "food",
-  "B2 Unit 1 Grammar Drill",
-  "B2 Unit 2 Contrastive Pairs",
-  "B2 Unit 2 Phrasal Verbs",
-  "B2 Unit 2 Word Formation",
-  "B2 Unit 2 Conversation",
-  "B2 Scenario Loop",
-]
+export async function fetchTopics(): Promise<Topic[]> {
+  const res = await fetch(`${API_URL}/topics`)
+  const data = await res.json()
+
+  return data.topics as Topic[]
+}
 
 export async function transcribeAudio(blob: Blob): Promise<string> {
   const form = new FormData()
@@ -40,6 +30,7 @@ export async function sendMessage(messages: Message[], topic: Topic): Promise<st
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ messages, topic }),
   })
+  if (!res.ok) throw new Error(`Chat failed: ${res.status}`)
   const data = await res.json()
 
   return data.text as string

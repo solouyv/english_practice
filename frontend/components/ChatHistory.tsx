@@ -20,7 +20,7 @@ export function ChatHistory({ messages, loading, onReplay }: Props) {
   )
 
   return (
-    <div className="w-full h-80 overflow-y-auto border rounded-xl p-4 flex flex-col gap-3 bg-white">
+    <div className="w-full flex-1 min-h-0 overflow-y-auto border rounded-xl p-4 flex flex-col gap-3 bg-white">
       {messages.length === 0 && (
         <p className="text-center text-gray-400 mt-8 text-sm">
           Select a topic and hold the button to start speaking
