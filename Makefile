@@ -18,5 +18,5 @@ frontend:
 	cd $(FRONTEND_DIR) && npm run dev
 
 install:
-	cd $(BACKEND_DIR) && python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+	cd $(BACKEND_DIR) && rm -rf .venv && python3.12 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 	cd $(FRONTEND_DIR) && npm install
